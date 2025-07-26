@@ -1,0 +1,15 @@
+import { useState } from 'react';
+import FlightFilters from '../components/Flights/FlightFilters';
+import FlightList from '../components/Flights/FlightList';
+
+export default function FlightsPage() {
+  const [filters, setFilters] = useState({});
+
+  return (
+    <div className="p-4">
+      <h1 className="text-3xl font-bold mb-4">Available Flights</h1>
+      <FlightFilters onFilterChange={setFilters} />
+      <FlightList filters={filters} />
+    </div>
+  );
+}
