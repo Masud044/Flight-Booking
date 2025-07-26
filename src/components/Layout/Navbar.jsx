@@ -6,12 +6,12 @@ export default function Navbar() {
   const { user, logout } = useContext(AuthContext);
 
   return (
-    <nav className="navbar bg-base-200 px-4">
+    <nav className="navbar bg-blue-900 px-4">
       <div className="flex-1">
-        <Link to="/" className="text-xl font-bold">Flight Booking</Link>
+        <Link to="/" className="text-xl font-bold text-white">Flight Booking</Link>
       </div>
       <div className="flex-none">
-        <Link to="/" className="btn btn-ghost">Flights</Link>
+        <Link to="/" className=" text-white font-medium mx-10">Flights</Link>
         {user ? (
           <>
             <Link to="/booking" className="btn btn-ghost">Booking</Link>
