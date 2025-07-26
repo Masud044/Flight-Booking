@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SeatSelection from '../components/Booking/SeatSelection';
 import BookingForm from '../components/Booking/BookingForm';
 import toast from 'react-hot-toast';
-import apiClient from '../api/apiCient';
+import apiClient from '../api/apiClient';
 
 
 export default function BookingPage() {

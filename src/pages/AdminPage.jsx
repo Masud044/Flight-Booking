@@ -2,7 +2,7 @@ import { useState } from 'react';
 import FlightList from '../components/Flights/FlightList';
 import FlightForm from '../components/Flights/FlightForm';
 import toast from 'react-hot-toast';
-import apiClient from '../api/apiCient';
+import apiClient from '../api/apiClient';
 
 
 export default function AdminPage() {

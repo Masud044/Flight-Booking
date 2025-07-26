@@ -1,8 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const AuthContext = createContext();
+// Create context
+ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -10,13 +9,14 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      setUser({ email: 'demo@user.com' }); // Example placeholder
+      // Optionally decode the token or fetch user info
+      setUser({ token });
     }
   }, []);
 
   const login = (token) => {
     localStorage.setItem('token', token);
-    setUser({ email: 'demo@user.com' });
+    setUser({ token });
   };
 
   const logout = () => {
@@ -25,9 +25,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user,  login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
-export default AuthProvider;
+

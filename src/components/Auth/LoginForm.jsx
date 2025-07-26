@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import toast from 'react-hot-toast';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import apiClient from '../../api/apiCient';
+import apiClient from '../../api/apiClient';
 
 const schema = yup.object({
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -18,7 +18,7 @@ export default function LoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      const res = await apiClient.post('/auth/login', data);
+      const res = await apiClient.post('/login', data);
       login(res.data.token);
       toast.success('Login successful!');
     } catch {

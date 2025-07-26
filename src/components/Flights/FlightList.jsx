@@ -3,14 +3,17 @@ import { useQuery } from 'react-query';
 import FlightCard from './FlightCard';
 
 import toast from 'react-hot-toast';
-import apiClient from '../../api/apiCient';
+import apiClient from '../../api/apiClient';
 import Loader from '../../../UI/Loader';
 
 export default function FlightList({ filters = {}, onEdit, onDelete }) {
   const { data, isLoading, error } = useQuery(['flights', filters], async () => {
     const res = await apiClient.get('/flights', { params: filters });
     return res.data;
+    
   });
+  console.log(data)
+  
 
   if (isLoading) return <Loader />;
   if (error) {
