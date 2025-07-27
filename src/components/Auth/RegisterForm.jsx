@@ -3,9 +3,11 @@ import toast from 'react-hot-toast';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import apiClient from '../../api/apiClient';
+import { useNavigate } from 'react-router-dom';
 
 const  RegisterForm=()=> {
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -15,10 +17,11 @@ const  RegisterForm=()=> {
 
   const onSubmit = async (data) => {
     try {
-      const res = await apiClient.post('/api/register', data);
-      if (res.data.token) {
-        login(res.data.token);
+      // const res = await apiClient.post('/api/register', data);
+      if (data.token) {
+        login(data.token);
         toast.success('Registration successful!');
+        navigate('/'); // Redirect to home after registration
       } else {
         toast.success('User registered! Please login.');
       }

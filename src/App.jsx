@@ -11,7 +11,7 @@ import Toast from '../UI/Toast';
 
 export default function App() {
   return (
-    // <AuthProvider>
+     <AuthProvider>
       <BrowserRouter>
         <Navbar />
         <Toast/>
@@ -21,21 +21,21 @@ export default function App() {
           <Route
             path="/booking"
             element={
-              // <ProtectedRoute>
+               <ProtectedRoute>
                 <BookingPage />
-              // </ProtectedRoute>
+               </ProtectedRoute>
             }
           />
           <Route
             path="/admin"
             element={
-              // <ProtectedRoute>
+               <ProtectedRoute>
                 <AdminPage />
-              // </ProtectedRoute>
+               </ProtectedRoute>
             }
           />
         </Routes>
       </BrowserRouter>
-    // </AuthProvider>
+     </AuthProvider>
   );
 }

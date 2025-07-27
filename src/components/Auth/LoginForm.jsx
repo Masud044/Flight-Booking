@@ -1,11 +1,13 @@
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useContext } from 'react';
+import { use, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import apiClient from '../../api/apiClient';
+import {  useNavigate } from 'react-router-dom';
 
 const  LoginForm =()=> {
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -15,9 +17,10 @@ const  LoginForm =()=> {
 
   const onSubmit = async (data) => {
     try {
-      const res = await apiClient.post('/login', data);
-      login(res.data.token);
+      // const res = await apiClient.post('/login', data);
+      login(data.token);
       toast.success('Login successful!');
+      navigate('/'); // Redirect to home after login
     } catch {
       toast.error('Invalid credentials');
     }
