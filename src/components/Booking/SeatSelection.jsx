@@ -1,13 +1,14 @@
-import { useCountdown } from '../../hooks/useCountdown';
+import { useCountdown } from "../../hooks/useCountdown";
 
-const SeatSelection=({ seats = 20, selectedSeat, setSelectedSeat })=> {
+const SeatSelection = ({ seats = 20, selectedSeat, setSelectedSeat, bookedSeats = [] }) => {
   const { time, resetCountdown } = useCountdown(120);
-
   const seatArray = Array.from({ length: seats }, (_, i) => i + 1);
 
   const handleSeatSelect = (seat) => {
-    setSelectedSeat(seat);
-    resetCountdown();
+    if (!bookedSeats.includes(seat)) {
+      setSelectedSeat(seat);
+      resetCountdown();
+    }
   };
 
   return (
@@ -20,7 +21,10 @@ const SeatSelection=({ seats = 20, selectedSeat, setSelectedSeat })=> {
           <button
             key={seat}
             onClick={() => handleSeatSelect(seat)}
-            className={`btn btn-sm ${selectedSeat === seat ? 'btn-primary' : 'btn-outline'}`}
+            disabled={bookedSeats.includes(seat)}
+            className={`btn btn-sm ${
+              selectedSeat === seat ? 'btn-primary' : 'btn-outline'
+            }`}
           >
             Seat {seat}
           </button>
@@ -28,5 +32,5 @@ const SeatSelection=({ seats = 20, selectedSeat, setSelectedSeat })=> {
       </div>
     </div>
   );
-}
-export default SeatSelection; 
+};
+export default SeatSelection;

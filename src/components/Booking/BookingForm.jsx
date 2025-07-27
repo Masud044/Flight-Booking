@@ -1,20 +1,29 @@
 import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 
-const BookingForm = ({ onSubmit, selectedSeat }) => {
+const BookingForm = ({ onSubmit, selectedSeat, defaultValues, onDelete }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
+    reset,
   } = useForm();
+
+  useEffect(() => {
+    reset(defaultValues || {});
+  }, [defaultValues, reset]);
+
+  const isEditing = !!defaultValues;
 
   return (
     <form
       onSubmit={handleSubmit((data) => onSubmit({ ...data, seat: selectedSeat }))}
       className="p-4 space-y-4 bg-base-100 shadow rounded-lg max-w-md mx-auto"
     >
-      <h2 className="text-xl font-bold text-center">Book Your Seat</h2>
+      <h2 className="text-xl font-bold text-center">
+        {isEditing ? 'Update Booking' : 'Book Your Seat'}
+      </h2>
 
-      {/* Passenger Name */}
       <input
         {...register('passengerName', { required: 'Passenger name is required' })}
         placeholder="Passenger Name"
@@ -22,7 +31,6 @@ const BookingForm = ({ onSubmit, selectedSeat }) => {
       />
       <p className="text-red-500 text-sm">{errors.passengerName?.message}</p>
 
-      {/* Email */}
       <input
         {...register('email', {
           required: 'Email is required',
@@ -36,14 +44,22 @@ const BookingForm = ({ onSubmit, selectedSeat }) => {
       />
       <p className="text-red-500 text-sm">{errors.email?.message}</p>
 
-      <button
-        type="submit"
-        className="btn btn-primary w-full"
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? 'Booking...' : 'Confirm Booking'}
-      </button>
+      <div className="flex gap-2">
+        <button type="submit" className="btn btn-primary w-full">
+          {isEditing ? 'Update' : 'Confirm Booking'}
+        </button>
+        {isEditing && (
+          <button
+            type="button"
+            onClick={onDelete}
+            className="btn btn-error w-full"
+          >
+            Delete
+          </button>
+        )}
+      </div>
     </form>
   );
-}
+};
+
 export default BookingForm;

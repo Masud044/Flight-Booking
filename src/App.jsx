@@ -11,7 +11,7 @@ import Toast from '../UI/Toast';
 
 export default function App() {
   return (
-    <AuthProvider>
+    // <AuthProvider>
       <BrowserRouter>
         <Navbar />
         <Toast/>
@@ -36,6 +36,6 @@ export default function App() {
           />
         </Routes>
       </BrowserRouter>
-    </AuthProvider>
+    // </AuthProvider>
   );
 }
