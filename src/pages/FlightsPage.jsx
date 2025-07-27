@@ -2,7 +2,7 @@ import { useState } from 'react';
 import FlightFilters from '../components/Flights/FlightFilters';
 import FlightList from '../components/Flights/FlightList';
 
-export default function FlightsPage() {
+const FlightsPage=()=> {
   const [filters, setFilters] = useState({});
 
   return (
@@ -13,3 +13,4 @@ export default function FlightsPage() {
     </div>
   );
 }
+export default FlightsPage;

@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import apiClient from '../api/apiClient';
 
 
-export default function AdminPage() {
+const AdminPage =()=> {
   const [editingFlight, setEditingFlight] = useState(null);
 
   const handleAddFlight = async (data) => {
@@ -46,3 +46,4 @@ export default function AdminPage() {
     </div>
   );
 }
+export default AdminPage;

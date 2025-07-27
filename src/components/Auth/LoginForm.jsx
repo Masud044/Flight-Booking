@@ -1,20 +1,17 @@
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-
 import toast from 'react-hot-toast';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import apiClient from '../../api/apiClient';
 
-const schema = yup.object({
-  email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup.string().min(6, 'Min 6 chars').required('Password is required'),
-});
-
-export default function LoginForm() {
+const  LoginForm =()=> {
   const { login } = useContext(AuthContext);
-  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
   const onSubmit = async (data) => {
     try {
@@ -27,16 +24,56 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4 max-w-md mx-auto bg-base-100 rounded-lg shadow">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="p-6 space-y-4 max-w-md mx-auto bg-white rounded-lg shadow"
+    >
       <h2 className="text-2xl font-bold text-center">Login</h2>
 
-      <input {...register('email')} placeholder="Email" className="input input-bordered w-full" />
-      <p className="text-red-500 text-sm">{errors.email?.message}</p>
+      <div>
+        <input
+          {...register('email', {
+            required: 'Email is required',
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: 'Invalid email',
+            },
+          })}
+          type="email"
+          placeholder="Email"
+          className="input input-bordered w-full"
+        />
+        {errors.email && (
+          <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+        )}
+      </div>
 
-      <input {...register('password')} type="password" placeholder="Password" className="input input-bordered w-full" />
-      <p className="text-red-500 text-sm">{errors.password?.message}</p>
+      <div>
+        <input
+          {...register('password', {
+            required: 'Password is required',
+            minLength: {
+              value: 6,
+              message: 'Minimum 6 characters',
+            },
+          })}
+          type="password"
+          placeholder="Password"
+          className="input input-bordered w-full"
+        />
+        {errors.password && (
+          <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+        )}
+      </div>
 
-      <button className="btn btn-primary w-full">Login</button>
+      <button
+        type="submit"
+        className="btn btn-primary w-full"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? 'Logging in...' : 'Login'}
+      </button>
     </form>
   );
 }
+export default LoginForm; 

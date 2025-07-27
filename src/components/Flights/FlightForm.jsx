@@ -1,41 +1,78 @@
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 
-const schema = yup.object({
-  name: yup.string().required('Flight name is required'),
-  departure: yup.string().required('Departure location is required'),
-  arrival: yup.string().required('Arrival location is required'),
-  date: yup.string().required('Date is required'),
-  time: yup.string().required('Time is required'),
-});
-
-export default function FlightForm({ onSubmit, defaultValues }) {
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema),
+const FlightForm = ({ onSubmit, defaultValues }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
     defaultValues,
   });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4 max-w-md mx-auto bg-base-100 rounded-lg shadow">
-      <h2 className="text-2xl font-bold text-center">{defaultValues ? 'Edit Flight' : 'Add Flight'}</h2>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="p-4 space-y-4 max-w-md mx-auto bg-base-100 rounded-lg shadow"
+    >
+      <h2 className="text-2xl font-bold text-center">
+        {defaultValues ? 'Edit Flight' : 'Add Flight'}
+      </h2>
 
-      <input {...register('name')} placeholder="Flight Name" className="input input-bordered w-full" />
+      {/* Flight Name */}
+      <input
+        {...register('name', { required: 'Flight name is required' })}
+        placeholder="Flight Name"
+        className="input input-bordered w-full"
+      />
       <p className="text-red-500 text-sm">{errors.name?.message}</p>
 
-      <input {...register('departure')} placeholder="Departure" className="input input-bordered w-full" />
+      {/* Departure */}
+      <input
+        {...register('departure', { required: 'Departure location is required' })}
+        placeholder="Departure"
+        className="input input-bordered w-full"
+      />
       <p className="text-red-500 text-sm">{errors.departure?.message}</p>
 
-      <input {...register('arrival')} placeholder="Arrival" className="input input-bordered w-full" />
+      {/* Arrival */}
+      <input
+        {...register('arrival', { required: 'Arrival location is required' })}
+        placeholder="Arrival"
+        className="input input-bordered w-full"
+      />
       <p className="text-red-500 text-sm">{errors.arrival?.message}</p>
 
-      <input {...register('date')} type="date" className="input input-bordered w-full" />
+      {/* Date */}
+      <input
+        {...register('date', { required: 'Date is required' })}
+        type="date"
+        className="input input-bordered w-full"
+      />
       <p className="text-red-500 text-sm">{errors.date?.message}</p>
 
-      <input {...register('time')} type="time" className="input input-bordered w-full" />
+      {/* Time */}
+      <input
+        {...register('time', { required: 'Time is required' })}
+        type="time"
+        className="input input-bordered w-full"
+      />
       <p className="text-red-500 text-sm">{errors.time?.message}</p>
 
-      <button className="btn btn-primary w-full">{defaultValues ? 'Update Flight' : 'Add Flight'}</button>
+      <button
+        type="submit"
+        className="btn btn-primary w-full"
+        disabled={isSubmitting}
+      >
+        {isSubmitting
+          ? defaultValues
+            ? 'Updating...'
+            : 'Adding...'
+          : defaultValues
+          ? 'Update Flight'
+          : 'Add Flight'}
+      </button>
     </form>
   );
-}
+};
+
+export default FlightForm;

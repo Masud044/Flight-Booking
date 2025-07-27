@@ -1,4 +1,5 @@
-export default function FlightCard({ flight, onEdit, onDelete }) {
+const FlightCard =({ flight, onEdit, onDelete })=> {
+  
   return (
     <div className="card bg-base-100 shadow-md p-4">
       <h2 className="text-xl font-bold">{flight.name}</h2>
@@ -14,3 +15,4 @@ export default function FlightCard({ flight, onEdit, onDelete }) {
     </div>
   );
 }
+export default FlightCard;  

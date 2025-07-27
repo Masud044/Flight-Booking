@@ -1,6 +1,6 @@
 import { useCountdown } from '../../hooks/useCountdown';
 
-export default function SeatSelection({ seats = 20, selectedSeat, setSelectedSeat }) {
+const SeatSelection=({ seats = 20, selectedSeat, setSelectedSeat })=> {
   const { time, resetCountdown } = useCountdown(120);
 
   const seatArray = Array.from({ length: seats }, (_, i) => i + 1);
@@ -29,3 +29,4 @@ export default function SeatSelection({ seats = 20, selectedSeat, setSelectedSea
     </div>
   );
 }
+export default SeatSelection; 

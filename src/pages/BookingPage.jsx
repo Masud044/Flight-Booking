@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import apiClient from '../api/apiClient';
 
 
-export default function BookingPage() {
+const BookingPage =()=> {
   const [selectedSeat, setSelectedSeat] = useState(null);
 
   const handleBooking = async (bookingData) => {
@@ -30,3 +30,4 @@ export default function BookingPage() {
     </div>
   );
 }
+export default BookingPage;

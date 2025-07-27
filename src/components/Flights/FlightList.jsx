@@ -6,9 +6,9 @@ import toast from 'react-hot-toast';
 import apiClient from '../../api/apiClient';
 import Loader from '../../../UI/Loader';
 
-export default function FlightList({ filters = {}, onEdit, onDelete }) {
+const FlightList =({ filters = {}, onEdit, onDelete })=> {
   const { data, isLoading, error } = useQuery(['flights', filters], async () => {
-    const res = await apiClient.get('/flights', { params: filters });
+    const res = await apiClient.get('/api/flights', { params: filters });
     return res.data;
     
   });
@@ -38,3 +38,4 @@ export default function FlightList({ filters = {}, onEdit, onDelete }) {
     </div>
   );
 }
+export default FlightList;

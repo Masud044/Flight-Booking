@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function FlightFilters({ onFilterChange }) {
+const FlightFilters =({ onFilterChange })=> {
   const [filters, setFilters] = useState({ name: '', date: '', location: '' });
 
   const handleChange = (e) => {
@@ -33,3 +33,4 @@ export default function FlightFilters({ onFilterChange }) {
     </div>
   );
 }
+export default FlightFilters;
