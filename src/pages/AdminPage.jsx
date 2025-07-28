@@ -9,14 +9,18 @@ const AdminPage =()=> {
   const [editingFlight, setEditingFlight] = useState(null);
 
   const handleAddFlight = async (data) => {
+     console.log(data);
     try {
       if (editingFlight) {
-        await apiClient.put(`/flights/${editingFlight.id}`, data);
+        await apiClient.put(`/api/flights/${editingFlight._id}`, data);
+        console.log('Flight updated:', data);
         toast.success('Flight updated!');
         setEditingFlight(null);
       } else {
-        await apiClient.post('/flights', data);
+        await apiClient.post('/api/flights', data);
+        console.log('Flight added:', data);
         toast.success('Flight added!');
+        
       }
     // eslint-disable-next-line no-unused-vars
     } catch (error) {
@@ -26,7 +30,7 @@ const AdminPage =()=> {
 
   const handleDeleteFlight = async (id) => {
     try {
-      await apiClient.delete(`/flights/${id}`);
+      await apiClient.delete(`/api/flights/${id}`);
       toast.success('Flight deleted.');
     } catch {
       toast.error('Failed to delete flight.');

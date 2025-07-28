@@ -16,10 +16,12 @@ const  RegisterForm=()=> {
   } = useForm();
 
   const onSubmit = async (data) => {
+    console.log(data); // Debugging: Log the form data
     try {
-      // const res = await apiClient.post('/api/register', data);
-      if (data.token) {
-        login(data.token);
+      const res = await apiClient.post('/api/register', data);
+      if (res.data?.data?.token) {
+        console.log('Registration token:', res.data); // Debugging: Log the token
+        login(res.data?.data?.token);
         toast.success('Registration successful!');
         navigate('/'); // Redirect to home after registration
       } else {
@@ -37,15 +39,7 @@ const  RegisterForm=()=> {
     >
       <h2 className="text-2xl font-bold text-center">Register</h2>
 
-      {/* Name */}
-      <input
-        {...register('name', { required: 'Name is required' })}
-        placeholder="Full Name"
-        className="input input-bordered w-full"
-      />
-      <p className="text-red-500 text-sm">{errors.name?.message}</p>
-
-      {/* Email */}
+       {/* Email */}
       <input
         {...register('email', {
           required: 'Email is required',
@@ -57,6 +51,30 @@ const  RegisterForm=()=> {
         placeholder="Email"
         className="input input-bordered w-full"
       />
+       {/* Password */}
+      <input
+        {...register('password', {
+          required: 'Password is required',
+          minLength: {
+            value: 6,
+            message: 'Password must be at least 6 characters',
+          },
+        })}
+        type="password"
+        placeholder="Password"
+        className="input input-bordered w-full"
+      />
+      <p className="text-red-500 text-sm">{errors.password?.message}</p>
+
+      {/* Name */}
+      <input
+        {...register('name', { required: 'Name is required' })}
+        placeholder="Full Name"
+        className="input input-bordered w-full"
+      />
+      <p className="text-red-500 text-sm">{errors.name?.message}</p>
+
+     
       <p className="text-red-500 text-sm">{errors.email?.message}</p>
 
       {/* Phone */}
@@ -78,20 +96,7 @@ const  RegisterForm=()=> {
       </select>
       <p className="text-red-500 text-sm">{errors.gender?.message}</p>
 
-      {/* Password */}
-      <input
-        {...register('password', {
-          required: 'Password is required',
-          minLength: {
-            value: 6,
-            message: 'Password must be at least 6 characters',
-          },
-        })}
-        type="password"
-        placeholder="Password"
-        className="input input-bordered w-full"
-      />
-      <p className="text-red-500 text-sm">{errors.password?.message}</p>
+     
 
       <button type="submit" className="btn btn-primary w-full" disabled={isSubmitting}>
         {isSubmitting ? 'Registering...' : 'Register'}

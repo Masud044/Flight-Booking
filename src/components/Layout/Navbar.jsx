@@ -16,9 +16,11 @@ import { AuthContext } from '../../context/AuthContext';
           <>
             <Link to="/booking" className="text-white font-medium ">Booking</Link>
             <Link to="/admin" className="text-white font-medium">Admin</Link>
-            <button onClick={logout} className="btn btn-error">Logout</button>
+           
+            <button onClick={logout} className="btn btn-primary">Logout</button>
           </>
         ) : (
+           
           <Link to="/auth" className="btn btn-primary">Login</Link>
         )}
       </div>

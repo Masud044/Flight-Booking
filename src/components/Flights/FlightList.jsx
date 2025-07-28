@@ -9,10 +9,11 @@ import Loader from '../../../UI/Loader';
 const FlightList =({ filters = {}, onEdit, onDelete })=> {
   const { data, isLoading, error } = useQuery(['flights', filters], async () => {
     const res = await apiClient.get('/api/flights', { params: filters });
-    return res.data;
+    console.log(res.data.data.flights[0]);
+    return res.data.data.flights;
     
   });
-  console.log(data)
+  
   
 
   if (isLoading) return <Loader />;
@@ -26,7 +27,7 @@ const FlightList =({ filters = {}, onEdit, onDelete })=> {
       {data?.length ? (
         data.map((flight) => (
           <FlightCard
-            key={flight.id}
+            key={flight._id}
             flight={flight}
             onEdit={onEdit}
             onDelete={onDelete}

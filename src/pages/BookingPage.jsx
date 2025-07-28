@@ -12,7 +12,8 @@ const BookingPage = () => {
   // Fetch existing bookings from backend
   const fetchBookings = async () => {
     try {
-      const res = await apiClient.get('/bookings');
+      const res = await apiClient.get('/api/bookings');
+      console.log('Bookings fetched:', res.data);
       setBookings(res.data);
     // eslint-disable-next-line no-unused-vars
     } catch (error) {
@@ -34,11 +35,11 @@ const BookingPage = () => {
     try {
       if (editingBooking) {
         // Update
-        await apiClient.put(`/bookings/${editingBooking._id}`, bookingData);
+        await apiClient.put(`/api/bookings/${editingBooking._id}`, bookingData);
         toast.success('Booking updated.');
       } else {
         // New booking
-        await apiClient.post('/bookings', bookingData);
+        await apiClient.post('/api/bookings', bookingData);
         toast.success('Booking confirmed!');
       }
 
@@ -55,7 +56,7 @@ const BookingPage = () => {
   const handleDelete = async () => {
     if (!editingBooking) return;
     try {
-      await apiClient.delete(`/bookings/${editingBooking._id}`);
+      await apiClient.delete(`/api/bookings/${editingBooking._id}`);
       toast.success('Booking deleted.');
       setEditingBooking(null);
       setSelectedSeat(null);

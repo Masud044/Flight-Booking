@@ -10,6 +10,7 @@ const FlightFilters =({ onFilterChange })=> {
     onFilterChange(newFilters);
   };
 
+  
   return (
     <div className="flex flex-wrap gap-2 mb-4">
       <input
